@@ -1,8 +1,8 @@
 # Debug your css layout with ease
 
-# Setup
+---
 
-## Simple JS project
+### Setup with Vanila JS project
 
 ```js
 <!doctype html>
@@ -18,7 +18,7 @@
 </html>
 ```
 
-## React project
+### Setup with React project
 
 ```ts
 import { useDebugCss } from '@/lib/useDbugCss'
@@ -32,3 +32,9 @@ export default function App() {
   )
 }
 ```
+
+---
+
+## How to use
+
+Press: <kbd>Ctrl</kbd> + <kbd>I</kbd>
