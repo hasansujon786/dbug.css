@@ -20,7 +20,7 @@
 
 ### Setup with React project
 
-```ts
+```js
 import { useDebugCss } from '@/lib/useDbugCss'
 export default function App() {
   useDebugCss()

@@ -1,7 +1,17 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const bodyEl = document.querySelector('body')
-  const urlParams = new URLSearchParams(window.location.search)
+const storageService = {
+  retriveKey: () => {
+    let key = localStorage.getItem('dbug-active')
+    return key == null ? false : JSON.parse(key)
+  },
+  setActive: () => {
+    localStorage.setItem('dbug-active', JSON.stringify(true))
+  },
+  setDeactive: () => {
+    localStorage.setItem('dbug-active', JSON.stringify(false))
+  },
+}
 
+const initStyles = () => {
   const style = document.createElement('style')
   style.setAttribute('data-style', 'dbug')
   style.textContent = `
@@ -14,23 +24,24 @@ document.addEventListener('DOMContentLoaded', function () {
       `
   document.head.appendChild(style)
 
-  if (urlParams.get('dbug') == 'active') {
-    bodyEl?.classList.add('dbug')
+  if (storageService.retriveKey()) {
+    document.querySelector('body')?.classList.add('dbug')
   }
-})
+}
 
-window.addEventListener('keypress', (e) => {
+const toggleClassName = (e) => {
   if (e.code == 'KeyI' && e.ctrlKey) {
     const bodyEl = document.querySelector('body')
-    const urlParams = new URLSearchParams(window.location.search)
 
     if (bodyEl?.classList.contains('dbug')) {
       bodyEl?.classList.remove('dbug')
-      urlParams.delete('dbug')
+      storageService.setDeactive()
     } else {
       bodyEl?.classList.add('dbug')
-      urlParams.set('dbug', 'active')
+      storageService.setActive()
     }
-    history.replaceState(null, null, '?' + urlParams.toString())
   }
-})
+}
+
+window.addEventListener('keypress', toggleClassName)
+document.addEventListener('DOMContentLoaded', initStyles)
